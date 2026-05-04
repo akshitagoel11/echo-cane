@@ -7,14 +7,18 @@ const VISION_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/
 const API_KEY = 'YOUR_GEMINI_API_KEY';
 
 class SceneDescriptionManager {
-  async describeScene(imageUri) {
+  async describeScene(imageUri, base64Data = null) {
     try {
       AlertEngine.speak('दृश्य का विश्लेषण कर रहे हैं', 'INFO'); // "Analyzing scene"
 
-      // Read image as base64
-      const base64 = await FileSystem.readAsStringAsync(imageUri, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
+      let base64 = base64Data;
+      
+      if (!base64) {
+        // Read image as base64 only if not provided
+        base64 = await FileSystem.readAsStringAsync(imageUri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+      }
 
       // Prepare payload for Gemini Vision
       const payload = {

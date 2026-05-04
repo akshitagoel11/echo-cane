@@ -23,6 +23,10 @@
       "package": "com.echovision",
       "edgeToEdgeEnabled": true
     },
+    "updates": {
+      "enabled": false,
+      "checkOnLaunch": "NEVER"
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     }

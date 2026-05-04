@@ -17,11 +17,11 @@ const CameraScreen = ({ navigation }) => {
   // Real-time obstacle detection
   useFocusEffect(
     useCallback(() => {
-      DetectionService.startDetection();
+      DetectionService.startDetection(cameraRef);
       return () => {
         DetectionService.stopDetection();
       };
-    }, [])
+    }, [cameraRef])
   );
 
   const captureAndDescribe = async () => {

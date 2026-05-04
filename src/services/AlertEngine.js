@@ -6,6 +6,16 @@ class AlertEngine {
     this.lastAlertTime = 0;
     this.cooldown = 800; // 800ms cooldown as requested
     this.isSpeaking = false;
+    this.labels = {
+      'person': 'व्यक्ति',
+      'car': 'गाड़ी',
+      'pothole': 'गड्ढा',
+      'obstacle': 'बाधा',
+      'chair': 'कुर्सी',
+      'table': 'मेज़',
+      'door': 'दरवाज़ा',
+      'stair': 'सीढ़ी'
+    };
   }
 
   async speak(text, priority = 'INFO') {
@@ -40,27 +50,30 @@ class AlertEngine {
     if (!objects || objects.length === 0) return;
 
     // Filter for danger zone (bottom 40% of screen)
-    // Assuming object coordinates are normalized 0-1
-    const dangerZoneThreshold = 0.6; // Bottom 40% is > 0.6 in Y
+    const dangerZoneThreshold = 0.6; 
     
     const dangerousObjects = objects.filter(obj => {
-      // Check if any part of the object is in the danger zone
-      return obj.y + obj.height > dangerZoneThreshold;
+      const bottomY = obj.y + (obj.height || 0.1);
+      return bottomY > dangerZoneThreshold;
     });
 
     if (dangerousObjects.length > 0) {
-      // Find the closest object (largest area or highest Y)
       const closest = dangerousObjects.reduce((prev, current) => {
-        return (prev.y + prev.height > current.y + current.height) ? prev : current;
+        const prevBottom = prev.y + (prev.height || 0.1);
+        const currBottom = current.y + (current.height || 0.1);
+        return (prevBottom > currBottom) ? prev : current;
       });
 
       // Determine direction
-      const centerX = closest.x + closest.width / 2;
-      let direction = 'सामने'; // center
-      if (centerX < 0.35) direction = 'बायें'; // left
-      if (centerX > 0.65) direction = 'दायें'; // right
+      const centerX = closest.x + (closest.width || 0) / 2;
+      let direction = 'सामने';
+      if (centerX < 0.35) direction = 'बायें';
+      if (centerX > 0.65) direction = 'दायें';
 
-      this.speak(`${direction} बाधा है`, 'CRITICAL');
+      // Translate label
+      const labelHindi = this.labels[closest.label] || 'बाधा';
+
+      this.speak(`${direction} ${labelHindi} है`, 'CRITICAL');
     }
   }
 }

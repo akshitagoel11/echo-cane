@@ -1,0 +1,41 @@
+# EchoVision React Native Build Plan
+
+## 🟢 Phase 1: App Foundation (Camera + UI) - COMPLETE
+- [x] Initialize Expo Project
+- [x] Install Dependencies (`expo-camera`, `react-navigation`, `expo-haptics`)
+- [x] Create High-Contrast Design System
+- [x] Implement `CameraScreen` with live preview
+- [x] Implement 4 Large Accessible Buttons (Scene, Talk, Nav, SOS)
+- [x] Set up Navigation Flow
+- [x] Add Haptic Feedback
+
+## 🟢 Phase 2: Obstacle Detection (Native Bridge) - COMPLETE
+- [x] Prepare TFLite Model (YOLOv8n) [Structure ready, labels.txt added]
+- [x] Create Native Module for Android [TFLiteModule.kt complete]
+- [x] Implement Frame Processing Pipeline [Async simulation/real bridge setup]
+- [x] Add Hindi Voice Alerts ("सामने बाधा है") [Implemented in AlertEngine.js]
+
+## ⚪ Phase 3: Intelligent Alert System
+- [ ] Create `AlertEngine.js`
+- [ ] Implement Priority Queue (CRITICAL > WARNING > INFO)
+- [ ] Add Direction-based alerts (Left/Right/Center)
+
+## ⚪ Phase 4: Scene Description (Cloud Vision)
+- [ ] Integrate Vision API (Gemini/OpenAI)
+- [ ] Implement Image Capture & Resize
+- [ ] Add Hindi Speech Summary
+
+## ⚪ Phase 5: SOS System
+- [ ] Implement Location Tracking (`expo-location`)
+- [ ] Add SMS Integration with Maps link
+- [ ] Add Emergency Call Functionality
+
+## ⚪ Phase 6: Conversational AI (Sarvam)
+- [ ] Integrate Sarvam STT/TTS APIs
+- [ ] Implement Audio Recording (`expo-av`)
+- [ ] Add Voice Interaction UI
+
+## ⚪ Phase 7: Navigation
+- [ ] Integrate Google Maps Directions API
+- [ ] Implement Real-time Tracking
+- [ ] Add Hindi Voice Navigation
